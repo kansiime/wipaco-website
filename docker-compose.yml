@@ -1,0 +1,53 @@
+# Local development stack for the Wipaco website.
+#   Site:      http://localhost:8088        (admin: /wp-admin)
+#   Test mail: http://localhost:8025        (every email the site sends lands here)
+services:
+  db:
+    image: mariadb:11.4
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: wipaco
+      MARIADB_USER: wipaco
+      MARIADB_PASSWORD: wipaco
+      MARIADB_ROOT_PASSWORD: wipaco-root
+    volumes:
+      - db_data:/var/lib/mysql
+
+  wordpress:
+    image: wordpress:php8.3-apache
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - "127.0.0.1:8088:80"
+    environment: &wp_env
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: wipaco
+      WORDPRESS_DB_USER: wipaco
+      WORDPRESS_DB_PASSWORD: wipaco
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_ENVIRONMENT_TYPE', 'local');
+    volumes: &wp_volumes
+      - wp_data:/var/www/html
+      - ./theme/wipaco:/var/www/html/wp-content/themes/wipaco
+      - ./local/mu-plugins:/var/www/html/wp-content/mu-plugins
+      - ./setup:/setup:ro
+
+  cli:
+    image: wordpress:cli-php8.3
+    profiles: ["tools"]
+    user: "33:33"
+    depends_on:
+      - db
+    environment: *wp_env
+    volumes: *wp_volumes
+
+  mailpit:
+    image: axllent/mailpit:latest
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8025:8025"
+
+volumes:
+  db_data:
+  wp_data:

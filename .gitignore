@@ -1,0 +1,10 @@
+# Local admin login - never commit
+local/admin-login.txt
+
+# Composer dependencies (dompdf) - restore with: composer install (in theme/wipaco)
+theme/wipaco/vendor/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
