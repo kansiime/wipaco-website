@@ -10,7 +10,7 @@ $img = get_template_directory_uri() . '/assets/img/';
 	<div class="container hero__inner">
 		<p class="eyebrow eyebrow--light">Wipaco Investiments Limited</p>
 		<h1 class="hero__title">Industrial Chemicals Supplier in Kampala, Uganda</h1>
-		<p class="hero__lead">Caustic soda, soda ash, LABSA, microcrystalline wax and other raw materials for soap &amp; detergent makers, manufacturers and businesses across Uganda.</p>
+		<p class="hero__lead">Caustic soda, LABSA, SLES, soda ash, chlorine, acids, waxes and other raw materials for soap &amp; detergent makers, manufacturers and water treatment across Uganda.</p>
 		<div class="hero__actions">
 			<a class="btn btn--accent btn--lg" href="<?php echo esc_url( wipaco_shop_url() ); ?>">View Products<?php wipaco_icon( 'arrow' ); ?></a>
 			<a class="btn btn--whatsapp btn--lg" href="<?php echo esc_url( wipaco_whatsapp_url() ); ?>" target="_blank" rel="noopener"><?php wipaco_icon( 'whatsapp' ); ?>WhatsApp Us</a>

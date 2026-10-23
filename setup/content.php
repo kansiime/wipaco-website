@@ -103,7 +103,7 @@ foreach ( array( 'cart', 'checkout', 'myaccount' ) as $wc_page ) {
 
 $home = wsetup_page( 'home', 'Home', '', array(
 	'title'         => 'Wipaco Investiments Ltd %sep% Industrial Chemicals Supplier in Kampala, Uganda',
-	'description'   => 'Wipaco Investiments Limited supplies industrial chemicals in Kampala, Uganda: caustic soda, soda ash, LABSA, microcrystalline wax and raw materials for soap, detergent & manufacturing. Call +256 786 876637.',
+	'description'   => 'Wipaco Investiments Limited supplies industrial chemicals in Kampala, Uganda: caustic soda, LABSA, SLES, soda ash, chlorine, acids, waxes, glycerine and raw materials for soap, detergent & manufacturing.',
 	'focus_keyword' => 'industrial chemicals supplier Kampala',
 ) );
 
@@ -170,11 +170,19 @@ update_option( 'page_on_front', $home );
 $dir = '/setup/products/';
 
 $cat_alkalis = wsetup_term( 'Alkalis & Caustic Soda', 'alkalis-caustic-soda',
-	'Caustic soda flakes, caustic soda pearls and soda ash (sodium carbonate) for soap making, water treatment, textiles and manufacturing. Available in bulk in Kampala.' );
+	'Caustic soda flakes and pearls, soda ash (sodium carbonate) and sodium metasilicate for soap making, detergents, water treatment, textiles and manufacturing. Available in bulk in Kampala.' );
 $cat_soap = wsetup_term( 'Soap & Detergent Raw Materials', 'soap-detergent-raw-materials',
-	'LABSA, caustic soda and soda ash: the key raw materials for liquid soap, bar soap, washing powder and cleaning products. Supplied in Kampala, Uganda.' );
-$cat_wax = wsetup_term( 'Industrial Waxes', 'industrial-waxes',
-	'Microcrystalline wax and odourless micro wax for candles, polishes, cosmetics, petroleum jelly and industrial use. Bulk supply in Kampala.' );
+	'LABSA, SLES, CDEA, STPP, CMC, caustic soda, soda ash and fragrances: the key raw materials for liquid soap, bar soap, washing powder and cleaning products. Supplied in Kampala, Uganda.' );
+$cat_wax = wsetup_term( 'Waxes & Oils', 'industrial-waxes',
+	'Paraffin wax, microcrystalline wax, odourless micro wax and white (liquid paraffin) oil for candles, polishes, petroleum jelly, cosmetics and industrial use. Bulk supply in Kampala.' );
+$cat_acids = wsetup_term( 'Acids', 'acids',
+	'Hydrochloric acid and citric acid for pH control, descaling, cleaning products, water treatment and processing. Supplied in Kampala, Uganda.' );
+$cat_water = wsetup_term( 'Water Treatment & Disinfection', 'water-treatment',
+	'Chlorine (calcium hypochlorite) and other chemicals for drinking water treatment, swimming pools, sanitation and disinfection. Available in Kampala.' );
+$cat_cosmetic = wsetup_term( 'Cosmetics & Personal Care Ingredients', 'cosmetics-personal-care',
+	'Glycerine, white oil, odourless micro wax and fragrances for lotions, creams, petroleum jelly, hair products and soaps. Supplied in Kampala, Uganda.' );
+$cat_specialty = wsetup_term( 'Industrial & Specialty Chemicals', 'industrial-specialty-chemicals',
+	'Titanium dioxide, formalin and other specialty chemicals for paints, coatings, resins, preservation and manufacturing. Available in Kampala.' );
 
 /* ---------- Products ---------- */
 
@@ -182,11 +190,11 @@ $products = array(
 	array(
 		'name'  => 'Caustic Soda Flakes',
 		'slug'  => 'caustic-soda-flakes',
-		'image' => 'caustic-soda-flakes.jpg',
-		'alt'   => 'Bags of caustic soda flakes (sodium hydroxide) at Wipaco Investiments, Kampala',
+		'image' => 'caustic-soda-flakes-bag.jpg',
+		'alt'   => '25kg bag of caustic soda flakes NaOH 99.5% membrane grade by Kutch Chemical Industries',
 		'cats'  => array( $cat_alkalis, $cat_soap ),
-		'attrs' => array( 'Chemical name' => 'Sodium hydroxide (NaOH)', 'Form' => 'White flakes', 'CAS number' => '1310-73-2', 'Hazard class' => 'UN 1823, Class 8 (corrosive)', 'Packing' => 'Woven bags' ),
-		'short' => '<ul><li><strong>Chemical name:</strong> Sodium hydroxide (NaOH)</li><li><strong>Form:</strong> White flakes</li><li><strong>CAS No:</strong> 1310-73-2 &middot; UN 1823 &middot; Class 8</li><li><strong>Packing:</strong> Woven bags - ask us for available sizes</li></ul>',
+		'attrs' => array( 'Chemical name' => 'Sodium hydroxide (NaOH)', 'Purity' => '99.5% min (on dry basis), membrane grade', 'Form' => 'White flakes', 'CAS number' => '1310-73-2', 'Hazard class' => 'UN 1823, Class 8 (corrosive)', 'Manufacturer' => 'Kutch Chemical Industries, India', 'Packing' => '25 kg bags' ),
+		'short' => '<ul><li><strong>Chemical name:</strong> Sodium hydroxide (NaOH)</li><li><strong>Purity:</strong> 99.5% min, membrane grade</li><li><strong>CAS No:</strong> 1310-73-2 &middot; UN 1823 &middot; Class 8</li><li><strong>Manufacturer:</strong> Kutch Chemical Industries, India</li><li><strong>Packing:</strong> 25 kg bags</li></ul>',
 		'desc'  => '<p><strong>Caustic soda flakes</strong> (sodium hydroxide, NaOH) are one of the most widely used industrial alkalis. Wipaco Investiments supplies caustic soda flakes in Kampala in bulk and wholesale quantities.</p><h3>Common uses</h3><ul><li>Soap making (bar soap and liquid soap)</li><li>Detergent and cleaning product manufacturing</li><li>Water treatment and pH control</li><li>Textile processing and bleaching</li><li>Paper and pulp processing</li><li>Degreasing and industrial cleaning</li></ul><h3>Safety &amp; storage</h3><p>Corrosive (UN 1823, Class 8). Wear gloves and eye protection when handling. Store sealed in a cool, dry place and keep away from water and acids.</p>',
 		'seo'   => array(
 			'title'         => 'Caustic Soda Flakes Supplier in Kampala, Uganda %sep% %sitename%',
@@ -197,11 +205,11 @@ $products = array(
 	array(
 		'name'  => 'Caustic Soda Pearls 99%',
 		'slug'  => 'caustic-soda-pearls',
-		'image' => 'caustic-soda-pearls.jpg',
-		'alt'   => 'Bags of 99% caustic soda pearls stacked in the Wipaco store',
+		'image' => 'caustic-soda-pearls-bags.jpg',
+		'alt'   => '25kg bags of caustic soda pearls NaOH 99% and a scoop of white pearls',
 		'cats'  => array( $cat_alkalis, $cat_soap ),
-		'attrs' => array( 'Chemical name' => 'Sodium hydroxide (NaOH)', 'Purity' => '99%', 'Form' => 'Pearls (prills)', 'Packing' => 'Woven bags' ),
-		'short' => '<ul><li><strong>Chemical name:</strong> Sodium hydroxide (NaOH)</li><li><strong>Purity:</strong> 99%</li><li><strong>Form:</strong> Pearls / prills</li><li><strong>Packing:</strong> Woven bags - ask us for available sizes</li></ul>',
+		'attrs' => array( 'Chemical name' => 'Sodium hydroxide (NaOH)', 'Purity' => '99%', 'Form' => 'Pearls (prills)', 'Hazard class' => 'UN 1823, Class 8 (corrosive)', 'Origin' => 'China', 'Packing' => '25 kg bags' ),
+		'short' => '<ul><li><strong>Chemical name:</strong> Sodium hydroxide (NaOH)</li><li><strong>Purity:</strong> 99%</li><li><strong>Form:</strong> Pearls / prills</li><li><strong>Origin:</strong> China</li><li><strong>Packing:</strong> 25 kg bags</li></ul>',
 		'desc'  => '<p><strong>Caustic soda pearls 99%</strong> are high-purity sodium hydroxide in small round pearls. They flow freely, measure easily and dissolve evenly, making them popular with soap and detergent makers.</p><h3>Common uses</h3><ul><li>Bar soap and liquid soap production</li><li>Detergents and cleaning products</li><li>Water treatment and pH adjustment</li><li>Textile, paper and chemical processing</li></ul><h3>Safety &amp; storage</h3><p>Corrosive. Wear gloves and eye protection. Always add caustic soda to water slowly (never water to caustic soda). Keep bags sealed and dry.</p>',
 		'seo'   => array(
 			'title'         => 'Caustic Soda Pearls 99% in Kampala, Uganda %sep% %sitename%',
@@ -227,8 +235,8 @@ $products = array(
 	array(
 		'name'  => 'LABSA (Linear Alkyl Benzene Sulphonic Acid)',
 		'slug'  => 'labsa-linear-alkyl-benzene-sulphonic-acid',
-		'image' => 'labsa.jpg',
-		'alt'   => '250kg drums of LABSA linear alkyl benzene sulphonic acid from India',
+		'image' => 'labsa-drum.jpg',
+		'alt'   => 'Blue drum of LABSA linear alkyl benzene sulphonic acid',
 		'cats'  => array( $cat_soap ),
 		'attrs' => array( 'Chemical name' => 'Linear alkyl benzene sulphonic acid', 'Origin' => 'India', 'Packing' => '250 kg net drums' ),
 		'short' => '<ul><li><strong>Product:</strong> Linear Alkyl Benzene Sulphonic Acid (LABSA)</li><li><strong>Type:</strong> Anionic surfactant (active detergent)</li><li><strong>Origin:</strong> India</li><li><strong>Packing:</strong> 250 kg net drums</li></ul>',
@@ -242,8 +250,9 @@ $products = array(
 	array(
 		'name'  => 'Microcrystalline Wax WX-160S',
 		'slug'  => 'microcrystalline-wax-wx-160s',
-		'image' => 'microcrystalline-wax-wx160s.jpg',
-		'alt'   => '25kg bags of WX-160S microcrystalline wax made in Korea',
+		'image' => 'microcrystalline-wax-wx160s-bag.jpg',
+		'gallery' => array( 'microcrystalline-wax-wx160s-stack.jpg' ),
+		'alt'   => '25kg bag of SJ Materials WX-160S microcrystalline wax, made in Korea',
 		'cats'  => array( $cat_wax ),
 		'attrs' => array( 'Grade' => 'WX-160S', 'Manufacturer' => 'SJ Materials, Korea', 'Packing' => '25 kg bags' ),
 		'short' => '<ul><li><strong>Product:</strong> Microcrystalline wax, grade WX-160S</li><li><strong>Manufacturer:</strong> SJ Materials (made in Korea)</li><li><strong>Packing:</strong> 25 kg bags</li></ul>',
@@ -259,7 +268,7 @@ $products = array(
 		'slug'  => 'micro-wax-odourless',
 		'image' => 'micro-wax-odourless.jpg',
 		'alt'   => 'Cartons of odourless micro wax, 24kg net per carton',
-		'cats'  => array( $cat_wax ),
+		'cats'  => array( $cat_wax, $cat_cosmetic ),
 		'attrs' => array( 'Product' => 'Odourless microcrystalline wax', 'Packing' => 'Cartons, 24 kg net' ),
 		'short' => '<ul><li><strong>Product:</strong> Odourless microcrystalline wax</li><li><strong>Packing:</strong> Cartons, 24 kg net weight</li></ul>',
 		'desc'  => '<p><strong>Odourless micro wax</strong> is a refined microcrystalline wax with no smell, making it suitable for products where fragrance and purity matter.</p><h3>Common uses</h3><ul><li>Cosmetics, creams and lip products</li><li>Petroleum jelly and ointments</li><li>Scented and decorative candles</li><li>Polishes and coatings</li></ul>',
@@ -270,6 +279,8 @@ $products = array(
 		),
 	),
 );
+
+$products = array_merge( $products, require '/setup/products-more.php' );
 
 $cat_images = array();
 foreach ( $products as $order => $p ) {
@@ -294,11 +305,13 @@ foreach ( $products as $order => $p ) {
 	$product->set_description( $p['desc'] );
 	$product->set_category_ids( $p['cats'] );
 	$product->set_image_id( $image_id );
+	$product->set_gallery_image_ids( array_map( fn( $g ) => wsetup_image( $dir . $g, $p['alt'] ), $p['gallery'] ?? array() ) );
 	$product->set_attributes( $attributes );
 	$product->set_menu_order( $order );
 	$product->set_reviews_allowed( false );
 	$id = $product->save();
 	wsetup_seo( $id, $p['seo'] );
+	update_post_meta( $id, 'rank_math_primary_product_cat', $p['cats'][0] ); // main category = first listed
 
 	// Category photo: the first product listed with that category as its main (first) category.
 	$cat_images[ $p['cats'][0] ] = $cat_images[ $p['cats'][0] ] ?? $image_id;

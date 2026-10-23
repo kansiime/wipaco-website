@@ -25,6 +25,7 @@ while ( have_posts() ) :
 		<div class="container article">
 			<div class="article__body prose">
 				<?php the_content(); ?>
+				<?php get_template_part( 'template-parts/share-buttons' ); ?>
 			</div>
 
 			<aside class="article__aside">

@@ -159,7 +159,7 @@ function wipaco_fallback_menu() {
 add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );
 add_filter( 'woocommerce_show_page_title', '__return_false' ); // the page-hero banner already shows it
 add_filter( 'loop_shop_columns', fn() => 3 );
-add_filter( 'loop_shop_per_page', fn() => 12 );
+add_filter( 'loop_shop_per_page', fn() => 24 );
 add_filter( 'woocommerce_empty_price_html', fn() => '<span class="price-request">Price on request</span>' );
 remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
 remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
@@ -172,13 +172,35 @@ if ( WIPACO_CATALOGUE_MODE ) {
 	add_action( 'woocommerce_single_product_summary', 'wipaco_single_product_actions', 30 );
 }
 
+// Share buttons under the product details (after categories, which are at priority 40).
+add_action( 'woocommerce_single_product_summary', fn() => get_template_part( 'template-parts/share-buttons' ), 50 );
+
+/**
+ * A product's main category: the "Primary category" chosen in Rank Math's box on the product,
+ * otherwise its first category. Used for card labels, breadcrumbs and the product list.
+ */
+function wipaco_primary_cat( $product_id ) {
+	$primary = (int) get_post_meta( $product_id, 'rank_math_primary_product_cat', true );
+	$term    = $primary ? get_term( $primary, 'product_cat' ) : null;
+	if ( $term && ! is_wp_error( $term ) && has_term( $term->term_id, 'product_cat', $product_id ) ) {
+		return $term;
+	}
+	$terms = get_the_terms( $product_id, 'product_cat' );
+	return ( $terms && ! is_wp_error( $terms ) ) ? $terms[0] : null;
+}
+
 /** Category label above the product name on product cards. */
 function wipaco_loop_category() {
-	$terms = get_the_terms( get_the_ID(), 'product_cat' );
-	if ( $terms && ! is_wp_error( $terms ) ) {
-		echo '<span class="product-card__cat">' . esc_html( $terms[0]->name ) . '</span>';
+	$term = wipaco_primary_cat( get_the_ID() );
+	if ( $term ) {
+		echo '<span class="product-card__cat">' . esc_html( $term->name ) . '</span>';
 	}
 }
+
+add_filter( 'woocommerce_breadcrumb_main_term', function ( $main_term, $terms ) {
+	$primary = is_product() ? wipaco_primary_cat( get_the_ID() ) : null;
+	return $primary ?: $main_term;
+}, 10, 2 );
 add_action( 'woocommerce_shop_loop_item_title', 'wipaco_loop_category', 5 );
 
 function wipaco_product_whatsapp_text( $product ) {
@@ -341,7 +363,7 @@ function wipaco_local_business_schema() {
 		'@type'       => 'Store',
 		'@id'         => home_url( '/#business' ),
 		'name'        => 'Wipaco Investiments Limited',
-		'description' => 'Supplier of industrial chemicals and raw materials in Kampala, Uganda: caustic soda, soda ash, LABSA, microcrystalline wax and more.',
+		'description' => 'Supplier of industrial chemicals and raw materials in Kampala, Uganda: caustic soda, LABSA, SLES, soda ash, chlorine, acids, waxes, glycerine and more.',
 		'url'         => home_url( '/' ),
 		'logo'        => get_template_directory_uri() . '/assets/img/logo.png',
 		'image'       => get_template_directory_uri() . '/assets/img/hero-drums.webp',
@@ -368,6 +390,25 @@ add_filter( 'image_editor_output_format', function ( $formats ) {
 	$formats['image/jpeg'] = 'image/webp';
 	return $formats;
 } );
+
+/**
+ * Social link previews (Facebook, WhatsApp, X, LinkedIn) use the original JPEG upload:
+ * WhatsApp and some apps don't reliably show WebP preview images.
+ */
+function wipaco_og_image_jpeg( $attachment ) {
+	if ( empty( $attachment['url'] ) || ! str_ends_with( strtolower( $attachment['url'] ), '.webp' ) ) {
+		return $attachment;
+	}
+	$id       = ! empty( $attachment['id'] ) ? (int) $attachment['id'] : attachment_url_to_postid( $attachment['url'] );
+	$original = $id ? wp_get_original_image_url( $id ) : false;
+	if ( $original && ! str_ends_with( strtolower( $original ), '.webp' ) ) {
+		$attachment['url']  = $original;
+		$attachment['type'] = wp_check_filetype( $original )['type'];
+	}
+	return $attachment;
+}
+add_filter( 'rank_math/opengraph/facebook/image_array', 'wipaco_og_image_jpeg' );
+add_filter( 'rank_math/opengraph/twitter/image_array', 'wipaco_og_image_jpeg' );
 
 /* -------------------------------------------------------------------------
  * FAQs - "Product FAQs" box on each product; shown as a tab with FAQPage structured data

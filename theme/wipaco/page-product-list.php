@@ -7,8 +7,8 @@ get_header();
 $products = wc_get_products( array( 'status' => 'publish', 'limit' => -1, 'orderby' => 'menu_order title', 'order' => 'ASC' ) );
 $by_cat   = array();
 foreach ( $products as $product ) {
-	$terms = get_the_terms( $product->get_id(), 'product_cat' );
-	$cat   = ( $terms && ! is_wp_error( $terms ) ) ? $terms[0]->name : 'Other';
+	$term  = wipaco_primary_cat( $product->get_id() );
+	$cat   = $term ? $term->name : 'Other';
 	$by_cat[ $cat ][] = $product;
 }
 ksort( $by_cat );

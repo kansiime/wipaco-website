@@ -46,6 +46,27 @@ Microcrystalline wax has much finer crystals. It is more flexible, slightly stic
 Can I use microcrystalline wax for candles?
 Yes, usually blended with paraffin wax. It reduces cracking and improves how the candle holds fragrance. Ask us for advice on blend ratios for your product.",
 
+	'sles-70-texapon' => "What is the difference between SLES and LABSA?
+Both are cleaning and foaming agents. LABSA is an acid that must be neutralised and is cheaper; SLES is already neutral, gentler on skin and gives richer foam. Many liquid soaps use both.
+
+Why is SLES 70% so thick?
+It is a concentrated paste. Add it slowly to water while stirring and give it time to dissolve fully.",
+
+	'chlorine-65-calcium-hypochlorite' => "What is chlorine 65% used for?
+It disinfects drinking water, swimming pools and water tanks, and sanitises premises such as farms, food factories and hospitals.
+
+Can chlorine be mixed with other chemicals?
+No. Never mix chlorine with acids (such as hydrochloric acid), ammonia or other cleaning products - this can release toxic gas. Always add chlorine to water.
+
+How should chlorine be stored?
+Keep the container tightly closed in a cool, dry and shaded place, away from heat, acids and anything that can burn.",
+
+	'hydrochloric-acid-33' => "What is hydrochloric acid 33% used for?
+Water treatment and pH control, cleaning and descaling metal and equipment, making toilet and tile cleaners, and chemical processing.
+
+How do I dilute hydrochloric acid safely?
+Wear gloves and goggles, work in a ventilated area, and always pour the acid slowly into water - never water into acid.",
+
 	'micro-wax-odourless' => "Why choose odourless micro wax?
 It has no smell, so it does not affect the fragrance of cosmetics, ointments or scented candles.
 
@@ -73,9 +94,9 @@ $guides = array(
 	array(
 		'slug'     => 'how-to-make-liquid-soap-with-labsa',
 		'title'    => 'How to Make Liquid Soap with LABSA: A Beginner\'s Guide',
-		'image'    => 'labsa.jpg',
+		'image'    => 'labsa-drum.jpg',
 		'alt'      => 'LABSA drums used for making liquid soap',
-		'products' => 'labsa-linear-alkyl-benzene-sulphonic-acid,soda-ash-dense,caustic-soda-pearls',
+		'products' => 'labsa-linear-alkyl-benzene-sulphonic-acid,sles-70-texapon,soda-ash-dense',
 		'excerpt'  => 'A step-by-step guide to making liquid soap with LABSA in Uganda: ingredients, neutralising with soda ash or caustic soda, and checking pH.',
 		'seo'      => array(
 			'title'         => 'How to Make Liquid Soap with LABSA in Uganda (Step by Step) %sep% %sitename%',
@@ -131,7 +152,7 @@ HTML,
 	array(
 		'slug'     => 'caustic-soda-flakes-vs-pearls',
 		'title'    => 'Caustic Soda Flakes vs Pearls: Which Should You Buy?',
-		'image'    => 'caustic-soda-pearls.jpg',
+		'image'    => 'caustic-soda-pearls-bags.jpg',
 		'alt'      => 'Bags of caustic soda pearls',
 		'products' => 'caustic-soda-flakes,caustic-soda-pearls',
 		'excerpt'  => 'Flakes and pearls are both caustic soda (sodium hydroxide). Here is how they differ in handling, measuring and dissolving, and which suits your business.',
@@ -173,7 +194,7 @@ HTML,
 	array(
 		'slug'     => 'safe-handling-caustic-soda-and-labsa',
 		'title'    => 'Safe Handling and Storage of Caustic Soda and LABSA',
-		'image'    => 'caustic-soda-flakes.jpg',
+		'image'    => 'caustic-soda-flakes-bag.jpg',
 		'alt'      => 'Caustic soda bags with corrosive hazard labels',
 		'products' => 'caustic-soda-flakes,labsa-linear-alkyl-benzene-sulphonic-acid,caustic-soda-pearls',
 		'excerpt'  => 'Protective gear, mixing rules, storage, spills and first aid: what every soap and detergent maker should know when working with caustic soda and LABSA.',
