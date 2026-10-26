@@ -44,10 +44,26 @@ jobs:
         run: |
           host=$(printf '%s' "$FTP_SERVER" | tr -d '[:space:]' | sed -E 's#^[a-zA-Z]+://##; s#[/:].*$##')
           echo "FTP_HOST=$host" >> "$GITHUB_ENV"
-          if ! getent hosts "$host" > /dev/null; then
+          ip=$(getent hosts "$host" | awk '{print $1; exit}')
+          if [ -z "$ip" ]; then
+            # The domain's only DNS server is the hosting server, which may not answer GitHub's resolver.
+            # Ask Google/Cloudflare instead and pin the answer for this run.
+            for resolver in 8.8.8.8 1.1.1.1; do
+              ip=$(dig +short +time=5 +tries=2 @"$resolver" "$host" A 2>/dev/null | grep -E '^[0-9.]+$' | tail -1)
+              [ -n "$ip" ] && break
+            done
+            if [ -n "$ip" ]; then
+              echo "GitHub's DNS could not look up the FTP server; using $resolver's answer instead."
+              echo "$ip $host" | sudo tee -a /etc/hosts > /dev/null
+            fi
+          fi
+          if [ -z "$ip" ]; then
+            # Safe clues about the secret (it is masked in logs): length, ending, spelling checks.
+            echo "FTP_SERVER clues: ${#host} characters, ends with '.${host##*.}', contains 'servconfig': $([[ $host == *servconfig* ]] && echo yes || echo no), contains 'wipacoinvestiments': $([[ $host == *wipacoinvestiments* ]] && echo yes || echo no), contains 'wipacoinvestments' (missing i): $([[ $host == *wipacoinvestments* ]] && echo yes || echo no)"
             echo "::error::FTP_SERVER is not a server name that exists. Set it to only the hostname from cPanel (FTP Accounts > Configure FTP Client), e.g. server123.servconfig.com - no ftp://, no spaces."
             exit 1
           fi
+          echo "FTP server found."
           result=$(echo QUIT | timeout 20 openssl s_client -connect "$host:21" -starttls ftp -servername "$host" -verify_hostname "$host" 2>/dev/null | grep -m1 'Verify return code' || true)
           echo "FTPS certificate check: ${result:-no answer}"
           case "$result" in
