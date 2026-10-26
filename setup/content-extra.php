@@ -343,7 +343,7 @@ $privacy_content = <<<HTML
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Wipaco Investiments Limited, Shop No. L5 02, TransNile Link Building, Plot 10, Johnson Street, Kampala. Email: wipacoinvestiments@gmail.com. Tel: +256 786 876637. WhatsApp: +256 707 555500.</p>
+<p>Wipaco Investiments Limited, Shop No. L5 02, TransNile Link Building, Plot 10, Johnson Street, Kampala. Email: sales@wipacoinvestiments.com. Tel: +256 786 876637. WhatsApp: +256 707 555500.</p>
 <!-- /wp:paragraph -->
 HTML;
 

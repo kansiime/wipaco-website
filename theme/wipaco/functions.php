@@ -78,7 +78,7 @@ function wipaco_contact_fields() {
 		'phone_2'      => array( 'Second phone (leave empty to hide)', '' ),
 		'other_phones' => array( 'Other phone numbers (comma separated)', '' ),
 		'whatsapp'     => array( 'WhatsApp number (digits only, with 256)', '256707555500' ),
-		'email'        => array( 'Email (quote requests are sent here)', 'wipacoinvestiments@gmail.com' ),
+		'email'        => array( 'Email (quote requests are sent here)', 'sales@wipacoinvestiments.com' ),
 		'address'      => array( 'Address', 'Shop No. L5 02, TransNile Link Building, Plot 10, Johnson Street, Kampala, Uganda' ),
 		'hours'        => array( 'Opening hours (leave empty to hide)', '' ),
 		'facebook'     => array( 'Facebook page link', '' ),

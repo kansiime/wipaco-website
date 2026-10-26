@@ -12,7 +12,7 @@ if ! wp core is-installed 2>/dev/null; then
 		--title="Wipaco Investiments Limited" \
 		--admin_user=wipaco-admin \
 		--admin_password="$ADMIN_PASS" \
-		--admin_email=wipacoinvestiments@gmail.com \
+		--admin_email=sales@wipacoinvestiments.com \
 		--skip-email
 fi
 
