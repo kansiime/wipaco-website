@@ -37,11 +37,30 @@ jobs:
         if: env.FTP_SERVER == ''
         run: echo "::warning::FTP secrets not set - checks passed, nothing uploaded. Add FTP_SERVER, FTP_USERNAME and FTP_PASSWORD."
 
+      # Cleans the FTP_SERVER secret (spaces, line breaks, ftp://, paths) and checks it before uploading,
+      # so a wrong value fails with a clear message instead of a DNS error.
+      - name: Check FTP server name and certificate
+        if: env.FTP_SERVER != ''
+        run: |
+          host=$(printf '%s' "$FTP_SERVER" | tr -d '[:space:]' | sed -E 's#^[a-zA-Z]+://##; s#[/:].*$##')
+          echo "FTP_HOST=$host" >> "$GITHUB_ENV"
+          if ! getent hosts "$host" > /dev/null; then
+            echo "::error::FTP_SERVER is not a server name that exists. Set it to only the hostname from cPanel (FTP Accounts > Configure FTP Client), e.g. server123.servconfig.com - no ftp://, no spaces."
+            exit 1
+          fi
+          result=$(echo QUIT | timeout 20 openssl s_client -connect "$host:21" -starttls ftp -servername "$host" -verify_hostname "$host" 2>/dev/null | grep -m1 'Verify return code' || true)
+          echo "FTPS certificate check: ${result:-no answer}"
+          case "$result" in
+            *"0 (ok)"*) ;;
+            *) echo "::error::The FTP server's security certificate does not match this name. Use the server's own hostname (cPanel > General Information > Server Name, ends in .servconfig.com) as FTP_SERVER."
+               exit 1 ;;
+          esac
+
       - name: Upload theme to cPanel (FTPS)
         if: env.FTP_SERVER != ''
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
-          server: ${{ secrets.FTP_SERVER }}
+          server: ${{ env.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
