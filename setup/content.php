@@ -181,6 +181,8 @@ $cat_water = wsetup_term( 'Water Treatment & Disinfection', 'water-treatment',
 	'Chlorine (calcium hypochlorite) and other chemicals for drinking water treatment, swimming pools, sanitation and disinfection. Available in Kampala.' );
 $cat_cosmetic = wsetup_term( 'Cosmetics & Personal Care Ingredients', 'cosmetics-personal-care',
 	'Glycerine, white oil, odourless micro wax and fragrances for lotions, creams, petroleum jelly, hair products and soaps. Supplied in Kampala, Uganda.' );
+$cat_soapbase = wsetup_term( 'Soap Bases (Melt & Pour)', 'soap-bases',
+	'Ready-made melt and pour soap bases - glycerin, goat\'s milk, charcoal and aloe vera - for handmade, hotel and gift soaps. No caustic soda needed. Available in Kampala.' );
 $cat_specialty = wsetup_term( 'Industrial & Specialty Chemicals', 'industrial-specialty-chemicals',
 	'Titanium dioxide, formalin and other specialty chemicals for paints, coatings, resins, preservation and manufacturing. Available in Kampala.' );
 
@@ -354,6 +356,8 @@ set_theme_mod( 'nav_menu_locations', array( 'primary' => $menu_id ) );
 
 update_option( 'rank_math_registration_skip', 1 );
 update_option( 'rank_math_wizard_completed', 1 );
+// Only the SEO features Wipaco uses: sitemap, structured data and WooCommerce SEO (no Content AI, link suggestions, analytics).
+update_option( 'rank_math_modules', array( 'sitemap', 'rich-snippet', 'woocommerce' ) );
 delete_option( 'rewrite_rules' );
 
 /* ---------- Site icon (favicon) ---------- */

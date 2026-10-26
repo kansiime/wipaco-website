@@ -12,6 +12,10 @@ define( 'WIPACO_CATALOGUE_MODE', true );
 
 require get_template_directory() . '/inc/icons.php';
 require get_template_directory() . '/inc/enquiry-pdf.php';
+require get_template_directory() . '/inc/login.php';
+require get_template_directory() . '/inc/admin-url.php';
+require get_template_directory() . '/inc/admin.php';
+require get_template_directory() . '/inc/admin-editor.php';
 
 /* -------------------------------------------------------------------------
  * Theme setup
@@ -159,10 +163,14 @@ function wipaco_fallback_menu() {
 add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );
 add_filter( 'woocommerce_show_page_title', '__return_false' ); // the page-hero banner already shows it
 add_filter( 'loop_shop_columns', fn() => 3 );
-add_filter( 'loop_shop_per_page', fn() => 24 );
+add_filter( 'loop_shop_per_page', fn() => 48 );
+// Keep one-result searches on the results page: the live search fetches that page and expects a product list.
+add_filter( 'woocommerce_redirect_single_search_result', '__return_false' );
 add_filter( 'woocommerce_empty_price_html', fn() => '<span class="price-request">Price on request</span>' );
 remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
 remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
+// The category description is already shown in the page banner (woocommerce.php).
+remove_action( 'woocommerce_archive_description', 'woocommerce_taxonomy_archive_description', 10 );
 
 if ( WIPACO_CATALOGUE_MODE ) {
 	add_filter( 'woocommerce_is_purchasable', '__return_false' );
@@ -195,6 +203,17 @@ function wipaco_loop_category() {
 	if ( $term ) {
 		echo '<span class="product-card__cat">' . esc_html( $term->name ) . '</span>';
 	}
+
+	// Hidden keywords for the live product search: all categories and spec values,
+	// so typing "NaOH", "Texapon" or "HCl" finds the right product.
+	global $product;
+	$words = wp_list_pluck( get_the_terms( get_the_ID(), 'product_cat' ) ?: array(), 'name' );
+	foreach ( $product->get_attributes() as $attribute ) {
+		if ( ! $attribute->is_taxonomy() ) {
+			$words = array_merge( $words, $attribute->get_options() );
+		}
+	}
+	echo '<span class="product-card__keywords" hidden>' . esc_html( implode( ' ', $words ) ) . '</span>';
 }
 
 add_filter( 'woocommerce_breadcrumb_main_term', function ( $main_term, $terms ) {
@@ -238,10 +257,13 @@ function wipaco_single_product_actions() {
 function wipaco_register_enquiries() {
 	register_post_type( 'wipaco_enquiry', array(
 		'labels'       => array(
-			'name'          => 'Enquiries',
-			'singular_name' => 'Enquiry',
-			'edit_item'     => 'View Enquiry',
-			'all_items'     => 'All Enquiries',
+			'name'          => 'Quote Requests',
+			'singular_name' => 'Quote Request',
+			'edit_item'     => 'Quote Request',
+			'all_items'     => 'All Quote Requests',
+			'menu_name'     => 'Quote Requests',
+			'not_found'     => 'No quote requests yet',
+			'search_items'  => 'Search quote requests',
 		),
 		'public'       => false,
 		'show_ui'      => true,

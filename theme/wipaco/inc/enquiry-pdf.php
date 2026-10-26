@@ -126,5 +126,8 @@ add_action( 'add_meta_boxes_wipaco_enquiry', function ( $post ) {
 		if ( ! empty( $data['Email'] ) ) {
 			echo '<p><a class="button" href="' . esc_url( 'mailto:' . $data['Email'] . '?subject=' . rawurlencode( 'Your quote request ' . wipaco_enquiry_ref( $post->ID ) ) ) . '">Reply by email</a></p>';
 		}
+		if ( current_user_can( 'delete_post', $post->ID ) ) {
+			echo '<p class="wipaco-delete"><a href="' . esc_url( get_delete_post_link( $post->ID ) ) . '">Delete this request</a></p>';
+		}
 	}, 'wipaco_enquiry', 'side', 'high' );
 } );

@@ -42,15 +42,21 @@ else :
 						<a class="cat-pill<?php echo ( $current && $current->term_id === $cat->term_id ) ? ' is-active' : ''; ?>" href="<?php echo esc_url( get_term_link( $cat ) ); ?>"><?php echo esc_html( $cat->name ); ?></a>
 					<?php endforeach; endif; ?>
 				</nav>
-				<form class="product-search" role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+				<?php // data-* settings drive the live filter in assets/js/main.js. ?>
+				<form class="product-search" role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>"
+					data-whatsapp="<?php echo esc_attr( strtok( wipaco_whatsapp_url(), '?' ) ); ?>"
+					data-quote="<?php echo esc_attr( wipaco_quote_url( 'Other / several products' ) ); ?>"
+					<?php if ( $current ) : ?>
+						data-scope="<?php echo esc_attr( $current->name ); ?>" data-all="<?php echo esc_attr( wipaco_shop_url() ); ?>"
+					<?php endif; ?>>
 					<label class="screen-reader-text" for="product-search">Search products</label>
 					<?php wipaco_icon( 'search' ); ?>
-					<input id="product-search" type="search" name="s" value="<?php echo esc_attr( get_search_query() ); ?>" placeholder="Search chemicals, e.g. caustic soda">
+					<input id="product-search" type="search" name="s" value="<?php echo esc_attr( get_search_query() ); ?>" placeholder="Search chemicals, e.g. caustic soda" autocomplete="off" aria-controls="shop-results">
 					<input type="hidden" name="post_type" value="product">
 				</form>
 			</div>
 
-			<?php woocommerce_content(); ?>
+			<div id="shop-results"><?php woocommerce_content(); ?></div>
 
 			<div class="shop-help">
 				<div>

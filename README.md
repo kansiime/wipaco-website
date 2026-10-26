@@ -13,7 +13,7 @@ docker compose up -d
 | What | Where |
 |---|---|
 | Website | http://localhost:8088 |
-| Admin panel | http://localhost:8088/wp-admin (login in `local/admin-login.txt`) |
+| Staff login (admin) | http://localhost:8088/wipaco-staff (login in `local/admin-login.txt`) |
 | Test mailbox (quote emails) | http://localhost:8025 |
 
 First-time setup on a fresh machine (after cloning):
@@ -26,6 +26,20 @@ docker compose run --rm -e ADMIN_PASS=choose-a-password cli sh /setup/install.sh
 ```
 
 When uploading the theme to hosting, include the `theme/wipaco/vendor/` folder.
+
+## Staff login
+
+The admin is reached at **`/wipaco-staff`**, not the usual WordPress address. For visitors who are
+not logged in, `/wp-admin`, `/wp-login.php`, `/login` and `/admin` show the normal "Page not found" page.
+After logging in, the admin runs at **`/wipaco-staff/panel/`** (e.g. `/wipaco-staff/panel/edit.php?post_type=product`);
+staff who type `/wp-admin` are redirected there. The real files stay in `/wp-admin` - a rewrite rule that the theme
+writes at the top of `.htaccess` (block `# BEGIN Wipaco Panel`) maps the panel address onto them.
+
+- Change the login address: `define( 'WIPACO_LOGIN_SLUG', 'new-address' );` in `wp-config.php` (the panel follows it).
+- Switch the panel address off: `define( 'WIPACO_PANEL', false );` in `wp-config.php` - the admin returns to `/wp-admin`.
+- Apache / LiteSpeed hosting (most cPanel hosts) works automatically. On **nginx**, the panel stays off (admin at
+  `/wp-admin`) unless an equivalent `rewrite ^/wipaco-staff/panel/(.*)$ /wp-admin/$1 last;` rule is added.
+- If the Wipaco theme is ever switched off, the default WordPress login and `/wp-admin` come back (no lock-out).
 
 ## Day-to-day tasks (admin panel)
 
@@ -64,3 +78,24 @@ When uploading the theme to hosting, include the `theme/wipaco/vendor/` folder.
 2. Publish the Cart, Checkout and My Account pages (currently drafts).
 3. Install a payment plugin: Flutterwave or Pesapal (MTN MoMo, Airtel Money, cards).
 4. Enter prices on all products, set up delivery zones under **WooCommerce > Settings > Shipping**.
+
+## Automatic deployment (theme code)
+
+Every push to `main` that changes `theme/wipaco/` runs `.github/workflows/deploy.yml`, which:
+checks all PHP files for errors, installs the PDF library, then uploads only the changed theme files to
+cPanel over FTPS. Results are on the repo's **Actions** tab (it can also be run by hand from there).
+
+**What is and isn't deployed**
+- Deployed automatically: the theme - design, layouts, features, admin customisation.
+- Never deployed: content (products, prices, guides, quote requests, contact details). After go-live, edit content
+  on the live admin at `/wipaco-staff`; the local site is for developing and testing code only.
+
+**One-time setup**
+1. cPanel > **FTP Accounts** > create an account (e.g. `deploy@wipacoinvestiments.com`) with directory
+   `public_html/wp-content/themes/wipaco` - it can only touch the theme.
+2. GitHub repo > **Settings > Secrets and variables > Actions** > add `FTP_SERVER` (e.g. `ftp.wipacoinvestiments.com`),
+   `FTP_USERNAME` and `FTP_PASSWORD`.
+3. Push a change (or Actions > Deploy theme to live site > **Run workflow**). The first run uploads the whole theme.
+
+If the upload fails with a certificate error, the host's FTP certificate doesn't match `ftp.` - use the server
+hostname shown in cPanel (FTP Accounts > Configure FTP Client) as `FTP_SERVER`.

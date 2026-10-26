@@ -1,0 +1,104 @@
+/* Branded staff login page (wp-login.php markup). Colours match the theme. */
+@font-face { font-family: "Inter"; font-weight: 100 900; font-display: swap; src: url("../fonts/inter-latin-wght-normal.woff2") format("woff2"); }
+@font-face { font-family: "Montserrat"; font-weight: 100 900; font-display: swap; src: url("../fonts/montserrat-latin-wght-normal.woff2") format("woff2"); }
+
+body.login.wipaco-login {
+	--blue: #2160d2; --blue-800: #123a86; --navy: #0c1b38; --green: #43b02a; --green-700: #2e7d32;
+	--ink: #17202f; --muted: #5a6577; --line: #e2e8f0; --tint: #f3f6fb;
+	margin: 0; height: auto; min-height: 100vh; min-height: 100dvh; background: var(--tint);
+	font: 15px/1.6 "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: var(--ink);
+	display: grid; grid-template-columns: 1fr;
+}
+@media (min-width: 900px) { body.login.wipaco-login { grid-template-columns: 1.1fr 1fr; } }
+html:has(body.wipaco-login) { height: auto; background: #f3f6fb; } /* core CSS sets 100%, which clipped tall pages */
+
+/* Left brand panel */
+.wipaco-login__brand { display: none; position: relative; color: #fff;
+	background: linear-gradient(160deg, rgb(12 27 56 / 92%), rgb(18 58 134 / 80%)), var(--login-img) center / cover no-repeat, var(--navy); }
+/* Desktop: the panel fills the window and stays put while the form side scrolls, so its text is never cut off. */
+@media (min-width: 900px) {
+	.wipaco-login__brand { display: flex; align-items: flex-end; position: sticky; top: 0; height: 100vh; height: 100dvh; }
+}
+.wipaco-login__brand-inner { padding: clamp(24px, 6vh, 56px) clamp(28px, 4vw, 56px); max-width: 560px; }
+/* Text scales with both window width and height, so short or zoomed screens still fit it. */
+.wipaco-login__brand h2 { font: 800 clamp(1.35rem, min(2.6vw, 5.2vh), 2.3rem)/1.15 "Montserrat", sans-serif; margin: 0 0 clamp(8px, 1.6vh, 14px); color: #fff; }
+.wipaco-login__brand p { color: #dbe5f7; margin: 0; font-size: clamp(.9rem, min(1.2vw, 2.4vh), 1.05rem); }
+.wipaco-login__eyebrow { font-weight: 700; font-size: .78rem !important; letter-spacing: .14em; text-transform: uppercase; color: #8fdc7a !important; margin-bottom: 14px !important; }
+
+/* Right: form column */
+.login #login { width: 100%; max-width: 400px; margin: auto; padding: clamp(24px, 6vh, 48px) 20px; align-self: center; box-sizing: border-box; }
+.login h1 { margin-bottom: clamp(14px, 3vh, 24px); }
+.login h1 a {
+	/* White tile so the logo's white background reads as intentional on the grey page. */
+	background: #fff url("../img/logo.webp") center / 190px auto no-repeat;
+	width: 230px; height: 96px; margin: 0 auto; border-radius: 14px; box-shadow: 0 1px 3px rgb(16 24 40 / 8%);
+	text-indent: -9999px; overflow: hidden; display: block;
+}
+.login form {
+	margin: 0; padding: 28px 28px 24px; border: 1px solid var(--line); border-radius: 16px;
+	background: #fff; box-shadow: 0 12px 32px rgb(16 24 40 / 10%);
+}
+.login label { font-weight: 600; font-size: .88rem; color: var(--ink); }
+.login form .input, .login input[type="text"], .login input[type="password"], .login input[type="email"] {
+	font: inherit; font-size: 1rem; margin: 6px 0 16px; padding: 10px 13px; min-height: 46px;
+	border: 1.5px solid #cfd8e6; border-radius: 8px; background: #fff; box-shadow: none;
+}
+.login form .input:focus, .login input[type="text"]:focus, .login input[type="password"]:focus {
+	border-color: var(--blue); box-shadow: 0 0 0 4px rgb(33 96 210 / 14%); outline: none;
+}
+.login .wp-pwd { margin-bottom: 0; }
+.login .button.wp-hide-pw { height: 46px; min-height: 46px; margin-top: 6px; color: var(--muted); }
+.login .button.wp-hide-pw:focus { border-color: transparent; box-shadow: 0 0 0 2px var(--blue); }
+.login .forgetmenot { margin-top: 6px; }
+.login .forgetmenot label { font-weight: 500; color: var(--muted); }
+.login input[type="checkbox"]:checked::before { filter: hue-rotate(0); }
+.login .button-primary {
+	float: none; width: 100%; margin-top: 16px; min-height: 46px; padding: 0 18px;
+	background: var(--blue); border: 0; border-radius: 999px; box-shadow: none; text-shadow: none;
+	font: 600 1rem "Inter", sans-serif; transition: background .15s;
+}
+.login .button-primary:hover, .login .button-primary:focus { background: var(--blue-800); box-shadow: 0 0 0 3px rgb(33 96 210 / 25%); }
+.login .submit { clear: both; }
+
+.login .wipaco-login__welcome, .login .message, .login .success, .login #login_error, .login .notice {
+	margin: 0 0 18px; padding: 14px 16px; border: 1px solid var(--line); border-left: 4px solid var(--blue);
+	border-radius: 10px; background: #fff; box-shadow: none; font-size: .92rem;
+}
+.login .wipaco-login__welcome { border-left-color: var(--green); }
+.login .wipaco-login__welcome strong { display: block; font: 700 1.15rem "Montserrat", sans-serif; color: var(--navy); margin-bottom: 2px; }
+.login #login_error, .login .notice-error { border-left-color: #c62828; background: #fdecec; }
+.login .message, .login .success { border-left-color: var(--green); }
+
+.login #nav, .login #backtoblog { padding: 0; margin: 18px 0 0; text-align: center; font-size: .9rem; }
+.login #nav a, .login #backtoblog a { color: var(--blue); text-decoration: none; }
+.login #nav a:hover, .login #backtoblog a:hover { color: var(--blue-800); text-decoration: underline; }
+.login .privacy-policy-page-link { margin: 18px 0 0; text-align: center; }
+.login .privacy-policy-page-link a { color: var(--muted); font-size: .85rem; }
+.login .language-switcher { display: none; }
+
+/* ---------- Smaller and shorter screens ---------- */
+
+/* Short windows (laptops, zoomed browsers, phones held sideways): tighten vertical spacing. */
+@media (max-height: 780px) {
+	.login h1 a { width: 200px; height: 78px; background-size: 165px auto; }
+	.login .wipaco-login__welcome { padding: 10px 14px; margin-bottom: 14px; }
+	.login .wipaco-login__welcome strong { font-size: 1.02rem; }
+	.login form { padding: 20px 22px 18px; }
+	.login form .input, .login input[type="text"], .login input[type="password"] { min-height: 42px; margin: 4px 0 12px; }
+	.login .button.wp-hide-pw { height: 42px; min-height: 42px; margin-top: 4px; }
+	.login .button-primary { min-height: 42px; margin-top: 10px; }
+	.login #nav, .login #backtoblog, .login .privacy-policy-page-link { margin-top: 12px; }
+}
+
+/* Small phones. */
+@media (max-width: 480px) {
+	.login #login { padding: 28px 16px 32px; }
+	.login form { padding: 22px 18px 20px; border-radius: 14px; }
+	.login h1 a { width: 190px; height: 76px; background-size: 160px auto; }
+}
+
+/* Phones and tablets without the side panel: a slim brand strip at the top. */
+@media (max-width: 899px) {
+	body.login.wipaco-login { background: linear-gradient(180deg, #0c1b38 0, #123a86 150px, #f3f6fb 150px); }
+	.login h1 a { box-shadow: 0 6px 20px rgb(12 27 56 / 25%); }
+}

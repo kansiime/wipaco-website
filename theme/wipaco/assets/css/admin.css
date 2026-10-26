@@ -1,0 +1,114 @@
+/* Wipaco admin branding: colours, menu logo, custom dashboard. */
+@font-face { font-family: "Inter"; font-weight: 100 900; font-display: swap; src: url("../fonts/inter-latin-wght-normal.woff2") format("woff2"); }
+@font-face { font-family: "Montserrat"; font-weight: 100 900; font-display: swap; src: url("../fonts/montserrat-latin-wght-normal.woff2") format("woff2"); }
+
+:root { --w-blue: #2160d2; --w-blue-800: #123a86; --w-navy: #0c1b38; --w-navy-2: #13264a; --w-green: #43b02a; --w-green-light: #8fdc7a; --w-line: #e2e8f0; --w-muted: #5a6577; --w-tint: #f3f6fb; }
+
+body.wp-admin { font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--w-tint); }
+.wp-admin h1, .wp-admin .wrap h1.wp-heading-inline { font-family: "Montserrat", sans-serif; font-weight: 700; }
+.wp-admin a { color: var(--w-blue); }
+.wp-admin a:hover { color: var(--w-blue-800); }
+
+/* Top bar */
+#wpadminbar { background: var(--w-navy); }
+#wpadminbar .ab-item, #wpadminbar a.ab-item, #wpadminbar > #wp-toolbar span.ab-label { color: #dbe5f7; }
+#wpadminbar .ab-top-menu > li:hover > .ab-item, #wpadminbar .ab-top-menu > li.hover > .ab-item { background: var(--w-navy-2); color: var(--w-green-light); }
+#wpadminbar .menupop .ab-sub-wrapper { background: var(--w-navy-2); }
+#wpadminbar #wp-admin-bar-wipaco-view-site > .ab-item { background: var(--w-green); color: #fff; font-weight: 600; }
+#wpadminbar #wp-admin-bar-wipaco-view-site > .ab-item:hover { background: #2e7d32; color: #fff; }
+
+/* Side menu */
+#adminmenuback, #adminmenuwrap, #adminmenu { background: var(--w-navy); }
+#adminmenu .wp-submenu, #adminmenu .wp-has-current-submenu .wp-submenu, #adminmenu a.wp-has-current-submenu:focus + .wp-submenu { background: var(--w-navy-2); }
+#adminmenu a { color: #dbe5f7; }
+#adminmenu div.wp-menu-image::before { color: #a9b8d6; }
+#adminmenu li.menu-top:hover, #adminmenu li.opensub > a.menu-top, #adminmenu li > a.menu-top:focus { background: var(--w-navy-2); color: var(--w-green-light); }
+#adminmenu li.menu-top:hover div.wp-menu-image::before, #adminmenu li.opensub > a.menu-top div.wp-menu-image::before { color: var(--w-green-light); }
+#adminmenu li.current a.menu-top, #adminmenu li.wp-has-current-submenu a.wp-has-current-submenu, #adminmenu .wp-menu-arrow, #adminmenu .wp-menu-arrow div { background: var(--w-blue); color: #fff; }
+#adminmenu li.current div.wp-menu-image::before, #adminmenu li.wp-has-current-submenu div.wp-menu-image::before { color: #fff; }
+#adminmenu .wp-submenu a:hover, #adminmenu .wp-submenu a:focus { color: var(--w-green-light); }
+#adminmenu .wp-submenu li.current a { color: #fff; }
+#adminmenu .awaiting-mod, #adminmenu .update-plugins { background: var(--w-green); }
+#collapse-button { color: #a9b8d6; }
+
+/* Logo at the top of the side menu */
+#adminmenuwrap::before {
+	content: ""; display: block; margin: 14px 12px 10px; height: 58px; border-radius: 10px;
+	background: #fff url("../img/logo.webp") center / 130px auto no-repeat;
+}
+.folded #adminmenuwrap::before { margin: 10px 6px; height: 28px; background: #fff url("../img/icon.png") center / 22px auto no-repeat; }
+@media (max-width: 782px) { #adminmenuwrap::before { display: none; } }
+
+/* Buttons */
+.wp-core-ui .button-primary { background: var(--w-blue); border-color: var(--w-blue); border-radius: 6px; }
+.wp-core-ui .button-primary:hover, .wp-core-ui .button-primary:focus { background: var(--w-blue-800); border-color: var(--w-blue-800); }
+.wp-core-ui .button, .wp-core-ui .button-secondary { border-radius: 6px; }
+.wp-core-ui .button-secondary, .wp-core-ui .button:not(.button-primary) { color: var(--w-blue); border-color: var(--w-blue); }
+.page-title-action, .wrap .page-title-action { border-radius: 6px !important; }
+
+/* List filters not used by Wipaco: Rank Math SEO score and product brand dropdowns. */
+#rank-math-seo-filter, .post-type-product select#product_brand { display: none; }
+
+/* ---------- Editing screens ---------- */
+.wipaco-steps { display: flex; gap: 12px; align-items: flex-start; margin: 14px 0 6px; padding: 12px 16px; border-radius: 10px; background: #fff; border: 1px solid var(--w-line); border-left: 4px solid var(--w-green); }
+.wipaco-steps .dashicons { color: var(--w-green); margin-top: 2px; }
+.wipaco-steps p { margin: 0; color: #3a4556; font-size: 13px; line-height: 1.6; }
+.post-php .postbox, .post-new-php .postbox { border: 1px solid var(--w-line); border-radius: 12px; overflow: hidden; }
+.post-php .postbox .hndle, .post-new-php .postbox .hndle { font-family: "Montserrat", sans-serif; font-size: 14px; }
+#woocommerce-product-data .type_box { display: none !important; } /* only simple products are used; WooCommerce JS moves it into the header */
+.wipaco-checklist { max-height: 260px; overflow: auto; border: 1px solid var(--w-line); border-radius: 8px; padding: 6px 10px; }
+.wipaco-checklist label { display: block; padding: 4px 0; }
+.wipaco-details { width: 100%; border-collapse: collapse; }
+.wipaco-details th, .wipaco-details td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--w-line); font-size: 14px; }
+.wipaco-details th { width: 180px; color: var(--w-muted); font-weight: 500; background: var(--w-tint); }
+.wipaco-details tr:last-child th, .wipaco-details tr:last-child td { border-bottom: 0; }
+/* Rank Math extras in the Publish box (score badge, "Lock Modified Date"). */
+#submitdiv .rank-math-seo-score, #submitdiv .misc-pub-section.rank-math-seo-score, #submitdiv [class*="rank-math-lock-modified"], #submitdiv #rank-math-lock-modified-date { display: none !important; }
+
+/* ---------- Dashboard ---------- */
+.index-php .welcome-panel { background: none; border: 0; padding: 0; margin-top: 16px; }
+.index-php .welcome-panel::before, .index-php .welcome-panel-close { display: none; }
+.wipaco-welcome {
+	display: grid; gap: 24px; align-items: center; padding: 28px; border-radius: 16px; color: #fff;
+	background: linear-gradient(110deg, var(--w-navy), var(--w-blue-800) 60%, var(--w-blue));
+}
+@media (min-width: 1100px) { .wipaco-welcome { grid-template-columns: minmax(260px, 1fr) 2fr; } }
+.wipaco-welcome__eyebrow { margin: 0 0 6px; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--w-green-light); }
+.wipaco-welcome h2 { margin: 0 0 6px; color: #fff; font: 800 24px/1.2 "Montserrat", sans-serif; }
+.wipaco-welcome p { margin: 0 0 16px; color: #dbe5f7; font-size: 14px; }
+.wipaco-welcome .button-hero { background: var(--w-green) !important; border-color: var(--w-green) !important; border-radius: 999px !important; font-weight: 600; }
+.wipaco-welcome .button-hero:hover { background: #2e7d32 !important; }
+.wipaco-welcome__tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; }
+.wipaco-tile {
+	position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 16px;
+	border-radius: 12px; background: rgb(255 255 255 / 10%); border: 1px solid rgb(255 255 255 / 16%);
+	color: #fff !important; text-decoration: none; transition: background .15s, transform .15s;
+}
+.wipaco-tile:hover { background: rgb(255 255 255 / 18%); transform: translateY(-2px); }
+.wipaco-tile .dashicons { width: 36px; height: 36px; font-size: 22px; line-height: 36px; text-align: center; border-radius: 10px; background: #fff; color: var(--w-blue); }
+.wipaco-tile__label { font-weight: 600; font-size: 14px; }
+.wipaco-tile__badge { position: absolute; top: 12px; right: 12px; padding: 2px 8px; border-radius: 999px; background: var(--w-green); font-size: 11px; font-weight: 700; }
+
+.index-php .postbox { border: 1px solid var(--w-line); border-radius: 12px; box-shadow: 0 1px 2px rgb(16 24 40 / 5%); overflow: hidden; }
+.index-php .postbox .postbox-header { border-bottom-color: var(--w-line); }
+.index-php .postbox .hndle { font-family: "Montserrat", sans-serif; font-size: 15px; }
+
+.wipaco-list { margin: 0; }
+.wipaco-list li { display: flex; align-items: center; gap: 12px; padding: 10px 0; margin: 0; border-bottom: 1px solid var(--w-line); }
+.wipaco-list li:last-child { border-bottom: 0; }
+.wipaco-list__main { flex: 1; display: flex; flex-direction: column; text-decoration: none; min-width: 0; }
+.wipaco-list__main strong { color: #17202f; }
+.wipaco-list__main span { color: var(--w-muted); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wipaco-list__meta { color: var(--w-muted); font-size: 12px; white-space: nowrap; }
+.wipaco-more { margin: 12px 0 0; font-weight: 600; }
+.wipaco-empty { color: var(--w-muted); }
+
+.wipaco-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.wipaco-stat { display: flex; flex-direction: column; padding: 14px; border-radius: 10px; background: var(--w-tint); text-decoration: none; }
+.wipaco-stat strong { font: 800 26px/1.1 "Montserrat", sans-serif; color: var(--w-blue-800); }
+.wipaco-stat span { color: var(--w-muted); font-size: 12px; margin-top: 4px; }
+.wipaco-help { margin: 0; }
+.wipaco-help li { margin: 0 0 10px; padding-left: 14px; position: relative; color: #3a4556; }
+.wipaco-help li::before { content: ""; position: absolute; left: 0; top: 8px; width: 6px; height: 6px; border-radius: 50%; background: var(--w-green); }
+.wipaco-delete { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--w-line); }
+.wipaco-delete a { color: #b32d2e; }

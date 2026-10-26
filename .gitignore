@@ -8,3 +8,6 @@ theme/wipaco/vendor/
 .DS_Store
 .vscode/
 .idea/
+
+# Live deployment package (contains database and passwords) - never commit
+deploy/

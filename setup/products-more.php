@@ -212,6 +212,77 @@ $more = array(
 	),
 );
 
+// Melt & pour soap bases: same how-to text, different type.
+$soap_base_howto = '<h3>How to use</h3><ol><li>Cut the base into small cubes.</li><li>Melt gently in a double boiler or in short bursts in a microwave - do not let it boil.</li><li>Stir in colour, fragrance or additives.</li><li>Pour into moulds and leave to set, then unmould and wrap.</li></ol><p>No caustic soda handling is needed, which makes soap bases ideal for beginners and small producers.</p>';
+$soap_bases = array(
+	array( 'Glycerin', 'glycerin', 'soap-base-glycerin.jpg', 'Clear, translucent', 'A clear base that shows off colours and embedded items, and leaves skin feeling soft.', array( 'soap-bases-all.jpg', 'soap-bases-blocks.jpg', 'soap-bases-bars.jpg' ) ),
+	array( "Goat's Milk", 'goats-milk', 'soap-base-goats-milk.jpg', 'Creamy white, opaque', "A rich, creamy white base made with goat's milk, popular for gentle and moisturising soaps.", array( 'soap-bases-all.jpg', 'soap-bases-blocks.jpg', 'soap-bases-bars.jpg' ) ),
+	array( 'Charcoal', 'charcoal', 'soap-base-charcoal.jpg', 'Black', 'A striking black base with charcoal, popular for face and deep-cleansing soaps.', array( 'soap-bases-all.jpg' ) ),
+	array( 'Aloe Vera', 'aloe-vera', 'soap-base-aloe-vera.jpg', 'Light green, translucent', 'A light green base with aloe vera, popular for soothing everyday soaps.', array( 'soap-bases-all.jpg', 'soap-bases-blocks.jpg', 'soap-bases-bars.jpg' ) ),
+);
+foreach ( $soap_bases as list( $type, $slug, $image, $look, $intro, $gallery ) ) {
+	$more[] = array(
+		'name'    => "$type Soap Base (Melt & Pour)",
+		'slug'    => "$slug-soap-base",
+		'image'   => $image,
+		'gallery' => $gallery,
+		'alt'     => "Block of $type melt and pour soap base",
+		'cats'    => array( $cat_soapbase, $cat_cosmetic ),
+		'attrs'   => array( 'Product' => "$type melt and pour soap base", 'Appearance' => $look, 'Packing' => 'Wrapped blocks' ),
+		'desc'    => "<p><strong>$type soap base</strong> is a ready-made melt and pour soap. $intro Melt it, add your colour and fragrance, and pour into moulds to make beautiful bars in minutes.</p><h3>Popular for</h3><ul><li>Handmade and natural soaps</li><li>Hotel and guest soaps</li><li>Gift and wedding favours</li><li>Soap-making classes and small businesses</li></ul>" . $soap_base_howto,
+		'seo'     => array(
+			'title'         => "$type Soap Base (Melt & Pour) in Kampala, Uganda %sep% %sitename%",
+			'description'   => "$type melt and pour soap base available in Kampala, Uganda. Melt, add colour and fragrance, and pour - no caustic soda needed. Quote from Wipaco Investiments.",
+			'focus_keyword' => strtolower( $type ) . ' soap base Uganda',
+		),
+	);
+}
+
+$more[] = array(
+	'name'  => 'Hydrogen Peroxide 50%',
+	'slug'  => 'hydrogen-peroxide-50',
+	'image' => 'hydrogen-peroxide-50.jpg',
+	'alt'   => 'Jerrycan of hydrogen peroxide 50%, UN 2014',
+	'cats'  => array( $cat_specialty, $cat_water ),
+	'attrs' => array( 'Chemical name' => 'Hydrogen peroxide solution (H2O2)', 'Concentration' => '50%', 'CAS number' => '7722-84-1', 'Hazard class' => 'UN 2014, Class 5.1 (oxidiser) and 8 (corrosive)', 'Packing' => 'Jerrycans' ),
+	'desc'  => '<p><strong>Hydrogen peroxide 50%</strong> is a strong oxidising agent used for bleaching and disinfection. It breaks down into water and oxygen, leaving no harmful residue.</p><h3>Common uses</h3><ul><li>Bleaching textiles, paper and pulp</li><li>Disinfection and sanitation</li><li>Water and wastewater treatment</li><li>Chemical processing</li></ul><h3>Safety &amp; storage</h3><p>Strong oxidiser and corrosive. Wear gloves, goggles and protective clothing. Store upright in a cool, shaded, ventilated place, away from heat, metals, flammable and organic materials. Never return unused product to the original container. For industrial use - dilute before most applications.</p>',
+	'seo'   => array(
+		'title'         => 'Hydrogen Peroxide 50% Supplier in Kampala, Uganda %sep% %sitename%',
+		'description'   => 'Hydrogen peroxide 50% (H2O2) in jerrycans, available in Kampala. For bleaching, disinfection and water treatment. Get a quote from Wipaco Investiments.',
+		'focus_keyword' => 'hydrogen peroxide Uganda',
+	),
+);
+
+$more[] = array(
+	'name'  => 'SLS Powder (Sodium Lauryl Sulphate)',
+	'slug'  => 'sls-powder-sodium-lauryl-sulphate',
+	'image' => 'sls-powder.jpg',
+	'alt'   => 'Bag of sodium lauryl sulfate SLS powder, detergent grade, made in India',
+	'cats'  => array( $cat_soap ),
+	'attrs' => array( 'Chemical name' => 'Sodium lauryl sulphate (SLS)', 'Grade' => 'Industrial / detergent grade', 'Active matter' => '85% - 95%', 'CAS number' => '151-21-3', 'Origin' => 'India', 'Packing' => 'Bags' ),
+	'desc'  => '<p><strong>SLS powder</strong> (sodium lauryl sulphate) is a powerful foaming and cleaning agent in dry powder form, with 85-95% active matter. Being a powder, it mixes easily into washing powders and solid products.</p><h3>Common uses</h3><ul><li>Washing powder and detergent bars</li><li>Carpet and upholstery cleaners</li><li>Industrial and household cleaning products</li><li>Foaming agent in cleaning formulations</li></ul><h3>Handling</h3><p>The fine powder can irritate the nose, eyes and skin. Wear a dust mask, gloves and goggles, and keep bags closed and dry.</p>',
+	'seo'   => array(
+		'title'         => 'SLS Powder (Sodium Lauryl Sulphate) in Kampala %sep% %sitename%',
+		'description'   => 'SLS powder (sodium lauryl sulphate), detergent grade, 85-95% active, available in Kampala, Uganda. For washing powder and cleaning products.',
+		'focus_keyword' => 'SLS powder Uganda',
+	),
+);
+
+$more[] = array(
+	'name'  => 'Petroleum Jelly',
+	'slug'  => 'petroleum-jelly',
+	'image' => 'petroleum-jelly.jpg',
+	'alt'   => 'Bowl of white petroleum jelly',
+	'cats'  => array( $cat_cosmetic, $cat_wax ),
+	'attrs' => array( 'Product' => 'Petroleum jelly (petrolatum)', 'CAS number' => '8009-03-8', 'Form' => 'Smooth, white semi-solid' ),
+	'desc'  => '<p><strong>Petroleum jelly</strong> (petrolatum) is a smooth, white semi-solid that locks in moisture and protects the skin. It is the base of many body jellies and ointments, and is also used in industry.</p><h3>Common uses</h3><ul><li>Body jelly and skin care products</li><li>Baby care products</li><li>Lip balms and hair products</li><li>Lubrication and rust protection</li></ul><p>Making your own blends? Combine with our <a href="/product/white-oil-liquid-paraffin/">white oil</a> and <a href="/product/micro-wax-odourless/">odourless micro wax</a>.</p>',
+	'seo'   => array(
+		'title'         => 'Petroleum Jelly Supplier in Kampala, Uganda %sep% %sitename%',
+		'description'   => 'Bulk petroleum jelly (petrolatum) available in Kampala, Uganda, for body jelly, skin care, baby care and industrial use. Quote from Wipaco Investiments.',
+		'focus_keyword' => 'petroleum jelly Uganda',
+	),
+);
+
 foreach ( $more as &$item ) {
 	$item['short'] = $spec_list( $item['attrs'] );
 }

@@ -1,0 +1,55 @@
+# Uploads the Wipaco theme to the live site (cPanel) on every push to main that changes it.
+# Content (products, prices, guides) is edited on the live admin and is never touched by this.
+#
+# One-time setup - GitHub repo > Settings > Secrets and variables > Actions > New repository secret:
+#   FTP_SERVER    e.g. ftp.wipacoinvestiments.com
+#   FTP_USERNAME  the cPanel FTP account whose folder is public_html/wp-content/themes/wipaco
+#   FTP_PASSWORD  that FTP account's password
+name: Deploy theme to live site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "theme/wipaco/**"
+      - ".github/workflows/deploy.yml"
+  workflow_dispatch: # "Run workflow" button on the Actions tab
+
+concurrency:
+  group: deploy-live
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      FTP_SERVER: ${{ secrets.FTP_SERVER }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Check PHP files for syntax errors
+        run: find theme/wipaco -path theme/wipaco/vendor -prune -o -name '*.php' -print0 | xargs -0 -n1 php -l
+
+      - name: Install PDF library (dompdf)
+        run: composer install --no-dev --optimize-autoloader --no-interaction --working-dir=theme/wipaco
+
+      - name: Skip upload if FTP secrets are not set yet
+        if: env.FTP_SERVER == ''
+        run: echo "::warning::FTP secrets not set - checks passed, nothing uploaded. Add FTP_SERVER, FTP_USERNAME and FTP_PASSWORD."
+
+      - name: Upload theme to cPanel (FTPS)
+        if: env.FTP_SERVER != ''
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./theme/wipaco/
+          server-dir: ./
+          exclude: |
+            **/.git*
+            **/.git*/**
+            composer.json
+            composer.lock
+            zz-*
